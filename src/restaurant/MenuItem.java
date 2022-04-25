@@ -9,24 +9,14 @@ class MenuItem {
     private boolean isNew;
 
 
-
-    public MenuItem(String aName, double aPrice, String aCategory) {
-        this.setName(aName);
-        this.setPrice(aPrice);
-        this.setDescription("");
-        this.setCategory(aCategory);
-        this.setItemState(true);
-    }
-
     public MenuItem(String aName, double aPrice, String aDescription, String aCategory) {
-        this.setName(aName);
-        this.setPrice(aPrice);
-        this.setDescription(aDescription);
-        this.setCategory(aCategory);
+        this.name = aName;
+        this.price = aPrice;
+        this.description = aDescription;
+        this.category = aCategory;
 
-        this.setItemState(true);
+        this.setItemState("new");
     }
-
 
 
     public String getName() {
@@ -73,8 +63,12 @@ class MenuItem {
         }
     }
 
-    public void setItemState(boolean newItem) {
-        this.isNew = newItem;
-        Menu.setLastUpdate();
+    public void setItemState(String str) {
+        if (str.equalsIgnoreCase("new")) {
+            this.isNew = true;
+            Menu.setLastUpdate();
+        } else if (str.equals("")) {
+            this.isNew = false;
+        }
     }
 }

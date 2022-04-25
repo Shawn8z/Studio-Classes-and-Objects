@@ -1,11 +1,12 @@
 package restaurant;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.time.LocalDateTime;
 
 class Menu {
-    private static LocalDate lastUpdate;
+    private static LocalDateTime lastUpdate;
     private Category category;
     private ArrayList<String> itemList;
 
@@ -16,7 +17,7 @@ class Menu {
 
 
     public String getLastUpdate() {
-        LocalDate timeStr = Menu.lastUpdate;
+        LocalDateTime timeStr = Menu.lastUpdate;
         return "Menu last update @" + timeStr.toString();
     }
     public ArrayList<String> getItemList() {
@@ -32,11 +33,11 @@ class Menu {
         itemList.add(aItem.getName());
     }
     public void setFillItemList() {
-        String str = this.category.getItemNameOnly();
+        String str = this.category.getAllItemNameOnly();
         this.itemList = new ArrayList<>(Arrays.asList(str.split("\n")));
     }
     public static void setLastUpdate() {
-        Menu.lastUpdate = LocalDate.now();
+        Menu.lastUpdate = LocalDateTime.now();
     }
 
 }
