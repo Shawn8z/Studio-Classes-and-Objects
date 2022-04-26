@@ -25,32 +25,39 @@ class Category {
 
 
 
-    // getters
-//    public String getAppetizerStr() {
-//        String resultStr = "Appetizers: \\n";
-//        for (MenuItem item : this.appetizer) {
-//            resultStr += item.getName() + "\\n";
-//        }
-//        return resultStr;
-//    }
-//    public String getMainCourseStr() {
-//        String resultStr = "MainCourse: \n";
-//        for (MenuItem item : this.mainCourse) {
-//            resultStr += item.getName() + "\n";
-//        }
-//        return resultStr;
-//    }
-//    public String getDessertStr() {
-//        String resultStr = "Desserts: \n";
-//        for (MenuItem item : this.dessert) {
-//            resultStr += item.getName() + "\n";
-//        }
-//        return resultStr;
-//    }
-//    public ArrayList<MenuItem> getAllMenuItemsList() {
-//        return this.allMenuItemsList;
-//    }
+//     getters
+    public String getAppetizerStr() {
+        String resultStr = "Appetizers: \n";
+        for (String itemName : this.hAppetizer.keySet()) {
+            resultStr += "* " + itemName + "\n";
+        }
+        return resultStr;
+    }
+    public String getMainCourseStr() {
+        String resultStr = "MainCourse: \n";
+        for (String itemName : this.hMainCourse.keySet()) {
+            resultStr += "* " +  itemName + "\n";
+        }
+        return resultStr;
+    }
+    public String getDessertStr() {
+        String resultStr = "Desserts: \n";
+        for (String itemName : this.hDessert.keySet()) {
+            resultStr += "* " +  itemName + "\n";
+        }
+        return resultStr;
+    }
+    public String getAllMenuItemsListStr() {
+        String result = "\n";
 
+        result += "-----------\n" + getAppetizerStr() + "-----------\n\n";
+        result += "-----------\n" + getMainCourseStr() + "-----------\n\n";
+        result += "-----------\n" + getDessertStr() + "-----------\n";
+        return result;
+    }
+
+
+    // forgot why I made this
     public String getAllItemNameOnly() {
         String resultStr = "";
         ArrayList<String> appetizerItemNames =  new ArrayList<>(this.hAppetizer.keySet());
@@ -77,22 +84,6 @@ class Category {
 
     //setters
 
-//    public void setAppetizer(MenuItem aAppetizer) {
-//        this.hAppetizer.put(aAppetizer.getName(), aAppetizer);
-//        this.hAllMenuItemsList.put(aAppetizer.getName(), aAppetizer);
-//        Menu.setLastUpdate();
-//    }
-//    public void setMainCourse(MenuItem aMainCourse) {
-//        this.hMainCourse.put(aMainCourse.getName(), aMainCourse);
-//        this.hAllMenuItemsList.put(aMainCourse.getName(), aMainCourse);
-//        Menu.setLastUpdate();
-//    }
-//    public void setDessert(MenuItem aDessert) {
-//        this.hDessert.put(aDessert.getName(), aDessert);
-//        this.hAllMenuItemsList.put(aDessert.getName(), aDessert);
-//        Menu.setLastUpdate();
-//    }
-
     public void setAddToCategory(MenuItem newItem) {
         if (newItem.getCategory() == null) {
             System.out.println("Category does not exist.\n +" +
@@ -100,19 +91,43 @@ class Category {
         } else if (newItem.getCategory().equals("appetizer")) {
 
             this.hAppetizer.put(newItem.getName(), newItem);
-            this.hAllMenuItemsList.put(newItem.getName(), newItem);
+//            this.hAllMenuItemsList.put(newItem.getName(), newItem);
             Menu.setLastUpdate();
 
         } else if (newItem.getCategory().equals("mainCourse")) {
 
             this.hMainCourse.put(newItem.getName(), newItem);
-            this.hAllMenuItemsList.put(newItem.getName(), newItem);
+//            this.hAllMenuItemsList.put(newItem.getName(), newItem);
             Menu.setLastUpdate();
 
         } else if (newItem.getCategory().equals("dessert")) {
 
             this.hDessert.put(newItem.getName(), newItem);
-            this.hAllMenuItemsList.put(newItem.getName(), newItem);
+//            this.hAllMenuItemsList.put(newItem.getName(), newItem);
+            Menu.setLastUpdate();
+        }
+    }
+
+    public void setRemoveFromCategory(MenuItem targetItem) {
+        if (targetItem.getCategory() == null) {
+            System.out.println("Category does not exist.\n +" +
+                    " Unable to add item " + targetItem.getName());
+        } else if (targetItem.getCategory().equals("appetizer")) {
+
+            this.hAppetizer.remove(targetItem.getName());
+//            this.hAllMenuItemsList.put(targetItem.getName(), targetItem);
+            Menu.setLastUpdate();
+
+        } else if (targetItem.getCategory().equals("mainCourse")) {
+
+            this.hMainCourse.remove(targetItem.getName());
+//            this.hAllMenuItemsList.put(targetItem.getName(), targetItem);
+            Menu.setLastUpdate();
+
+        } else if (targetItem.getCategory().equals("dessert")) {
+
+            this.hDessert.remove(targetItem.getName());
+//            this.hAllMenuItemsList.put(targetItem.getName(), targetItem);
             Menu.setLastUpdate();
         }
     }
