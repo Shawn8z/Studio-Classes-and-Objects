@@ -55,7 +55,20 @@ class Category {
         result += "-----------\n" + getDessertStr() + "-----------\n";
         return result;
     }
+    public MenuItem getMenuItem(String itemName) {
+        MenuItem result;
+        result = this.hAllMenuItemsList.get(itemName);
+        return result;
+    }
 
+    public ArrayList<MenuItem> getAllMenuItem() {
+        ArrayList<MenuItem> resultList = new ArrayList<>();
+        Set<String> keyList = this.hAllMenuItemsList.keySet();
+        for (String key : keyList) {
+            resultList.add(this.hAllMenuItemsList.get(key));
+        }
+        return resultList;
+    }
 
     // forgot why I made this
     public String getAllItemNameOnly() {
@@ -91,19 +104,19 @@ class Category {
         } else if (newItem.getCategory().equals("appetizer")) {
 
             this.hAppetizer.put(newItem.getName(), newItem);
-//            this.hAllMenuItemsList.put(newItem.getName(), newItem);
+            this.hAllMenuItemsList.put(newItem.getName(), newItem);
             Menu.setLastUpdate();
 
         } else if (newItem.getCategory().equals("mainCourse")) {
 
             this.hMainCourse.put(newItem.getName(), newItem);
-//            this.hAllMenuItemsList.put(newItem.getName(), newItem);
+            this.hAllMenuItemsList.put(newItem.getName(), newItem);
             Menu.setLastUpdate();
 
         } else if (newItem.getCategory().equals("dessert")) {
 
             this.hDessert.put(newItem.getName(), newItem);
-//            this.hAllMenuItemsList.put(newItem.getName(), newItem);
+            this.hAllMenuItemsList.put(newItem.getName(), newItem);
             Menu.setLastUpdate();
         }
     }
@@ -115,19 +128,19 @@ class Category {
         } else if (targetItem.getCategory().equals("appetizer")) {
 
             this.hAppetizer.remove(targetItem.getName());
-//            this.hAllMenuItemsList.put(targetItem.getName(), targetItem);
+            this.hAllMenuItemsList.put(targetItem.getName(), targetItem);
             Menu.setLastUpdate();
 
         } else if (targetItem.getCategory().equals("mainCourse")) {
 
             this.hMainCourse.remove(targetItem.getName());
-//            this.hAllMenuItemsList.put(targetItem.getName(), targetItem);
+            this.hAllMenuItemsList.put(targetItem.getName(), targetItem);
             Menu.setLastUpdate();
 
         } else if (targetItem.getCategory().equals("dessert")) {
 
             this.hDessert.remove(targetItem.getName());
-//            this.hAllMenuItemsList.put(targetItem.getName(), targetItem);
+            this.hAllMenuItemsList.put(targetItem.getName(), targetItem);
             Menu.setLastUpdate();
         }
     }

@@ -1,5 +1,8 @@
 package restaurant;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 class MenuItem {
 
     private String name;
@@ -7,6 +10,7 @@ class MenuItem {
     private String description;
     private String category;
     private boolean isNew;
+    private String itemDOB;
 
 
     public MenuItem(String aName, double aPrice, String aDescription, String aCategory) {
@@ -16,6 +20,7 @@ class MenuItem {
         this.category = aCategory;
 
         this.setItemState("new");
+        this.setItemDOB();
     }
 
 
@@ -36,6 +41,15 @@ class MenuItem {
     }
 
 
+    public String getItemDOB() {
+        return this.itemDOB;
+    }
+
+    public void setItemDOB() {
+        LocalDateTime timeObj = LocalDateTime.now();
+        DateTimeFormatter formattedTimeObj = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
+        this.itemDOB = timeObj.format(formattedTimeObj);
+    }
     public void setName(String aName) {
         this.name = aName;
         Menu.setLastUpdate();
@@ -67,8 +81,24 @@ class MenuItem {
         if (str.equalsIgnoreCase("new")) {
             this.isNew = true;
             Menu.setLastUpdate();
-        } else if (str.equals("")) {
+        } else {
             this.isNew = false;
         }
+    }
+
+    @Override
+    public String toString() {
+        String resultStr = "\n-------------------------------\n";
+        if (this.getItemState()) {
+            resultStr += "Name: " + this.getName() + " (NEW!) " + "\n";
+        } else {
+            resultStr += "Name: " + this.getName() + "\n";
+        }
+        resultStr += "Price: " + this.getPrice() + "\n" +
+                        "Description: " + this.getDescription() + "\n" +
+                        "Category: " + this.getCategory() + "\n";
+
+        resultStr += "-------------------------------";
+        return resultStr;
     }
 }

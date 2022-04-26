@@ -13,6 +13,7 @@ public class AppRunner {
         MenuItem beefStew = new MenuItem("beefStew", 15.99, "Tangy Beef Stew",
                             "mainCourse");
 
+        MenuItem cupCake = new MenuItem("cupCake", 2.99, "cherry cupCake", "appetizer");
 
         ArrayList<MenuItem> itemList = new ArrayList<>(Arrays.asList(burger, mintCake, fries, beefStew));
 
@@ -25,12 +26,26 @@ public class AppRunner {
 
         myMenu.setFillItemList();
         System.out.println(myMenu.getItemList());
-        myMenu.setRemoveItemFromList(burger);
-        System.out.println(myMenu.getItemList());
+//        myMenu.setAddToItemList(beefStew);
+//        myMenu.setRemoveItemFromListAndCategory("cupCake");
+//        System.out.println(myMenu.getItemList());
 
-//        System.out.println(myMenu.getLastUpdate());
 //        System.out.println(categories.getAllMenuItemsListStr());
 //        System.out.println(categories.getAllItemNameOnly());
-//
+//        categories.getMenuItem("beefStew").setItemState("old");
+
+        for (MenuItem item : itemList) {
+            item.setItemState("");
+        }
+
+        myMenu.setAddToItemList(cupCake);
+
+
+        for (MenuItem item : categories.getAllMenuItem()) {
+            System.out.println(item);
+        }
+//        System.out.println(categories.getMenuItem("beefStew"));
+
+        System.out.println(myMenu.getLastUpdate());
     }
 }

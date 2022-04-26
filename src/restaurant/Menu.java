@@ -4,11 +4,13 @@ package restaurant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 class Menu {
-    private static LocalDate lastUpdate;
+    private static LocalDateTime lastUpdate;
     private Category category;
-    private ArrayList<String> itemList;
+    private ArrayList<String> itemList = new ArrayList<>();
 
 
     public Menu(Category aCategory) {
@@ -17,9 +19,11 @@ class Menu {
 
 
     public String getLastUpdate() {
-        LocalDate timeStr = (Menu.lastUpdate);
+        LocalDateTime timeObj = (Menu.lastUpdate);
+        DateTimeFormatter formattedTimeObj = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
+        String formattedDateStr = timeObj.format(formattedTimeObj);
 
-        return "Menu last update @" + timeStr.toString();
+        return "\n\nMenu last update @ " + formattedDateStr;
     }
     public ArrayList<String> getItemList() {
         return this.itemList;
@@ -31,28 +35,36 @@ class Menu {
         this.category = aCategory;
     }
     public void setAddToItemList(MenuItem aItem) {
-        itemList.add(aItem.getName());
-        this.category.setAddToCategory(aItem);
-    }
-    public void setRemoveItemFromList(String itemName) {
-        if (itemList.contains(itemName)) {
-
-            MenuItem targetItem =
-            this.category.setRemoveFromCategory(aItem);
-            itemList.remove(itemName);
+        if (!this.itemList.contains(aItem.getName())) {
+            this.category.setAddToCategory(aItem);
+            this.itemList.add(aItem.getName());
+            Menu.setLastUpdate();
         } else {
-            System.out.println(aItem.getName() + " does not exist in the menu.");
+            System.out.println(aItem.getName() + " is already in the menu.");
         }
 
-
+    }
+    public void setRemoveItemFromListAndCategory(String itemName) {
+        if (this.itemList.contains(itemName)) {
+            MenuItem targetItem = this.category.getMenuItem(itemName);
+            this.category.setRemoveFromCategory(targetItem);
+            this.itemList.remove(itemName);
+            Menu.setLastUpdate();
+        } else {
+            System.out.println(itemName + " does not exist in the menu.");
+        }
     }
 
     public void setFillItemList() {
         String str = this.category.getAllItemNameOnly();
-        this.itemList = new ArrayList<>(Arrays.asList(str.split("\n")));
+        String[] itemNameList = str.split(", ");
+        for (String item : itemNameList) {
+            this.itemList.add(item);
+        }
+        Menu.setLastUpdate();
     }
     public static void setLastUpdate() {
-        Menu.lastUpdate = LocalDate.now();
+        Menu.lastUpdate = LocalDateTime.now();
     }
 }
 
